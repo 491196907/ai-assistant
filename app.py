@@ -18,7 +18,17 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # dirname(...) → 取它所在的文件夹
 # 作用：不管从哪个目录启动，都能找到同目录下的 notes.txt
 
-API_KEY = os.environ.get("DEEPSEEK_API_KEY")   # 从环境变量读 Key（不写死在代码里）
+def get_api_key():
+    """本地读环境变量；部署到 Streamlit Cloud 时改读 secrets"""
+    key = os.environ.get("DEEPSEEK_API_KEY")
+    if key:
+        return key
+    try:
+        return st.secrets["DEEPSEEK_API_KEY"]
+    except Exception:
+        return None
+
+API_KEY = get_api_key()
 URL = "https://api.deepseek.com/chat/completions"   # 接口地址
 MODEL = "deepseek-chat"                              # 用哪个模型
 NOTES_FILE = os.path.join(BASE_DIR, "notes.txt")     # 资料文件（拼成绝对路径）
