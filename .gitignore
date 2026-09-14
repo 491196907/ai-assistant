@@ -1,0 +1,14 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 密钥（千万别提交）
+.env
+.streamlit/secrets.toml
+
+# 程序生成的临时文件
+card.json
+cards.json
+cards.csv
+chat_log.txt
+qa_log.txt
